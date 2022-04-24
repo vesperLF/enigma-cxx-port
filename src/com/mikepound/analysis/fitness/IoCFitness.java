@@ -1,11 +1,5 @@
 package com.mikepound.analysis.fitness;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.Stream;
-
 public class IoCFitness extends FitnessFunction {
 
     public IoCFitness() {

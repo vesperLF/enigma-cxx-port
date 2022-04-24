@@ -1,5 +1,4 @@
 import com.mikepound.enigma.Enigma;
-import com.mikepound.enigma.Plugboard;
 import org.junit.jupiter.api.Test;
 
 import java.util.Random;

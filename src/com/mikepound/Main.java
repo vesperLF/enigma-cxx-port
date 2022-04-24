@@ -1,7 +1,6 @@
 package com.mikepound;
 
 import com.mikepound.analysis.EnigmaAnalysis;
-import com.mikepound.analysis.EnigmaKey;
 import com.mikepound.analysis.ScoredEnigmaKey;
 import com.mikepound.analysis.fitness.*;
 import com.mikepound.enigma.Enigma;

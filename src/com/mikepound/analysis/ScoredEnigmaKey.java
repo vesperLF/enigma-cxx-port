@@ -1,7 +1,5 @@
 package com.mikepound.analysis;
 
-import com.mikepound.enigma.Enigma;
-
 public class ScoredEnigmaKey extends EnigmaKey implements Comparable<ScoredEnigmaKey> {
     float score;
 
