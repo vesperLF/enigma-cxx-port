@@ -1,11 +1,11 @@
-# Java Enigma
+# C++ Enigma
 
-This is a Java implementation of an Enigma machine, along with code that attempts to break the encryption. This code is associated with the Computerphile video on [cracking enigma](https://www.youtube.com/watch?v=RzWB5jL5RX0).
+This is a C++ implementation of an Enigma machine, along with code that attempts to break the encryption. This code is associated with the Computerphile video on [cracking enigma](https://www.youtube.com/watch?v=RzWB5jL5RX0), and Mike's original Java implementation can be found [here](https://github.com/mikepound/enigma).
 
 An enigma machine is a mechanical encryption device that saw a lot of use before and during WW2. This code simulates a 3 rotor enigma, including the 8 rotors commonly seen during the war. 
 
 ## Installing and Usage
-You can compile and run this code yourself if you have Java installed. For convenience I recommend using [IntelliJ](https://www.jetbrains.com/idea/) or a similar IDE. The community edition is free, and it'll make editing, compiling and running the code a lot easier. If you'd like to run it yourself, first install java, then follow the instructions below. This assumes you've installed java and git.
+You can compile and run this code yourself if you have a C++ compiler installed. For convenience I recommend using [Visual Studio](https://visualstudio.microsoft.com/) or a similar IDE. The community edition is free, and it'll make editing, compiling and running the code a lot easier. If you'd like to run it yourself, follow the instructions below. This assumes you've installed git.
 
 ### Windows
 Clone and traverse into the enigma directory
