@@ -69,7 +69,7 @@ int main() {
     
     std::ofstream out_file("src\\analysis\\fitness\\n_grams_data.cxx");
     out_file.precision(23);
-    out_file << "#include n_grams_data.hxx\n\nconst float singles[26] = {\n";
+    out_file << "#include \"n_grams_data.hxx\"\n\nconst float singles[26] = {\n";
     for (int i = 0; i < 25; i++) {
         out_file << "    " << singles[i] << "f,\n";
     }
