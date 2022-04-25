@@ -67,23 +67,23 @@ int main() {
         }
     }
     
-    std::ofstream out_file("src\\n_grams_data.cxx");
+    std::ofstream out_file("src\\analysis\\fitness\\n_grams_data.cxx");
     out_file.precision(23);
     out_file << "#include n_grams_data.hxx\n\nconst float singles[26] = {\n";
     for (int i = 0; i < 25; i++) {
-        out_file << '\t' << singles[i] << "f,\n";
+        out_file << "    " << singles[i] << "f,\n";
     }
-    out_file << '\t' << singles[25] << "f\n};\n\nconst float bigrams[826] = {\n";
+    out_file << "    " << singles[25] << "f\n};\n\nconst float bigrams[826] = {\n";
     for (int i = 0; i < 825; i++) {
-        out_file << '\t' << bigrams[i] << "f,\n";
+        out_file << "    " << bigrams[i] << "f,\n";
     }
-    out_file << '\t' << bigrams[825] << "f\n};\n\nconst float trigrams[26426] = {\n";
+    out_file << "    " << bigrams[825] << "f\n};\n\nconst float trigrams[26426] = {\n";
     for (int i = 0; i < 26425; i++) {
-        out_file << '\t' << trigrams[i] << "f,\n";
+        out_file << "    " << trigrams[i] << "f,\n";
     }
-    out_file << '\t' << trigrams[26425] << "f\n};\n\nconst float quadgrams[845626] = {\n";
+    out_file << "    " << trigrams[26425] << "f\n};\n\nconst float quadgrams[845626] = {\n";
     for (int i = 0; i < 845625; i++) {
-        out_file << '\t' << quadgrams[i] << "f,\n";
+        out_file << "    " << quadgrams[i] << "f,\n";
     }
-    out_file << '\t' << quadgrams[845625] << "f\n};\n";
+    out_file << "    " << quadgrams[845625] << "f\n};\n";
 }
