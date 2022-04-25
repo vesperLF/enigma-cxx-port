@@ -72,5 +72,7 @@ float known_plaintext_fitness(char* text, char* known_text) {
             total++;
         }
     }
+#pragma warning(disable:4244)
     return total;
+#pragma warning(default:4244)
 }
