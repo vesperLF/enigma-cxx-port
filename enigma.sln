@@ -5,6 +5,8 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "enigma", "enigma.vcxproj", "{AE1B7F6F-0807-42DC-946A-3F538CED46BC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "n_gram_preprocessing", "n_gram_preprocessing.vcxproj", "{B594FFCA-FCE7-404A-9A85-8BABE50DCEF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{AE1B7F6F-0807-42DC-946A-3F538CED46BC}.Debug|x64.Build.0 = Debug|x64
 		{AE1B7F6F-0807-42DC-946A-3F538CED46BC}.Release|x64.ActiveCfg = Release|x64
 		{AE1B7F6F-0807-42DC-946A-3F538CED46BC}.Release|x64.Build.0 = Release|x64
+		{B594FFCA-FCE7-404A-9A85-8BABE50DCEF3}.Debug|x64.ActiveCfg = Debug|x64
+		{B594FFCA-FCE7-404A-9A85-8BABE50DCEF3}.Debug|x64.Build.0 = Debug|x64
+		{B594FFCA-FCE7-404A-9A85-8BABE50DCEF3}.Release|x64.ActiveCfg = Release|x64
+		{B594FFCA-FCE7-404A-9A85-8BABE50DCEF3}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

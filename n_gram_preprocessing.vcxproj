@@ -13,8 +13,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{ae1b7f6f-0807-42dc-946a-3f538ced46bc}</ProjectGuid>
-    <RootNamespace>enigma</RootNamespace>
+    <ProjectGuid>{b594ffca-fce7-404a-9a85-8babe50dcef3}</ProjectGuid>
+    <RootNamespace>ngrampreprocessing</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -82,29 +82,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\analysis\enigma_analysis.cxx" />
-    <ClCompile Include="src\analysis\fitness\fitness_functions.cxx" />
-    <ClCompile Include="src\analysis\fitness\frequency_analysis.cxx" />
-    <ClCompile Include="src\analysis\fitness\n_grams_data.cxx" />
-    <ClCompile Include="src\analysis\scored_enigma_key.cxx" />
-    <ClCompile Include="src\enigma\enigma.cxx" />
-    <ClCompile Include="src\enigma\plugboard.cxx" />
-    <ClCompile Include="src\enigma\reflector.cxx" />
-    <ClCompile Include="src\enigma\rotor.cxx" />
-    <ClCompile Include="src\main.cxx" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\analysis\enigma_analysis.hxx" />
-    <ClInclude Include="src\analysis\enigma_key.hxx" />
-    <ClInclude Include="src\analysis\fitness\fitness_functions.hxx" />
-    <ClInclude Include="src\analysis\fitness\frequency_analysis.hxx" />
-    <ClInclude Include="src\analysis\fitness\n_grams_data.hxx" />
-    <ClInclude Include="src\analysis\scored_enigma_key.hxx" />
-    <ClInclude Include="src\enigma\decode.hxx" />
-    <ClInclude Include="src\enigma\enigma.hxx" />
-    <ClInclude Include="src\enigma\plugboard.hxx" />
-    <ClInclude Include="src\enigma\reflector.hxx" />
-    <ClInclude Include="src\enigma\rotor.hxx" />
+    <ClCompile Include="n_gram_preprocessing.cxx" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

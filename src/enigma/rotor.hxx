@@ -11,7 +11,7 @@ private:
     int notch_position_2;
     int ring_position;
 public:
-    rotor(int name, int rotor_pos, int ring_setting);
+    rotor(int name = 1, int rotor_pos = 0, int ring_setting = 0);
     const std::string& get_name();
     int forward(int);
     int backward(int);

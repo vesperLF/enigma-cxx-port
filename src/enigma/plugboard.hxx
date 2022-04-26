@@ -1,14 +1,13 @@
 #pragma once
 
 #include <set>
-#include <string>
+#include <vector>
 
 class plugboard {
 private:
-    int* wiring;
+    std::vector<int> wiring;
 public:
-    plugboard(const std::string&);
-    ~plugboard();
+    plugboard(const std::set<std::pair<char, char>>& = {});
     int forward(int);
-    static std::set<int> get_unplugged_characters(const std::string&);
+    static std::set<int> get_unplugged_characters(const std::set<std::pair<char, char>>&);
 };

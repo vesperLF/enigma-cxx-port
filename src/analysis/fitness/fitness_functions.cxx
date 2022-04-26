@@ -1,7 +1,7 @@
 #include "fitness_functions.hxx"
 #include "n_grams_data.hxx"
 
-float single_character_fitness(char* text) {
+float single_character_fitness(const char* text) {
     float fitness = 0;
     for (; *text != 0; text++) {
         fitness += singles[*text - 65];
@@ -9,7 +9,7 @@ float single_character_fitness(char* text) {
     return fitness;
 }
 
-float bigram_fitness(char* text) {
+float bigram_fitness(const char* text) {
     float fitness = 0;
     int current;
     int next = text[0] - 65;
@@ -21,7 +21,7 @@ float bigram_fitness(char* text) {
     return fitness;
 }
 
-float trigram_fitness(char* text) {
+float trigram_fitness(const char* text) {
     float fitness = 0;
     int current;
     int next1 = text[0] - 65;
@@ -35,7 +35,7 @@ float trigram_fitness(char* text) {
     return fitness;
 }
 
-float quadgram_fitness(char* text) {
+float quadgram_fitness(const char* text) {
     float fitness = 0;
     int current;
     int next1 = text[0] - 65;
@@ -51,10 +51,10 @@ float quadgram_fitness(char* text) {
     return fitness;
 }
 
-float ioc_fitness(char* text) {
-    int histogram[26];
+float ioc_fitness(const char* text) {
+    int histogram[26] = {0};
     int length = 1;
-    for (char* p = text; *p != 0; p++) {
+    for (const char* p = text; *p != 0; p++) {
         histogram[*p - 65]++;
         length++;
     }
@@ -65,7 +65,7 @@ float ioc_fitness(char* text) {
     return total / (length * (length - 1));
 }
 
-float known_plaintext_fitness(char* text, char* known_text) {
+float known_plaintext_fitness(const char* text, const char* known_text) {
     int total = 0;
     for (int i = 0; text[i] != 0 && known_text[i] != 0; i++) {
         if (known_text[i] == text[i]) {

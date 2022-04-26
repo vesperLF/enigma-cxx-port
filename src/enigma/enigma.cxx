@@ -1,5 +1,12 @@
 #include "enigma.hxx"
 
+enigma::enigma(const enigma_key& key) {
+    left_rotor = rotor(key.rotors[0], key.indicators[0], key.rings[0]);
+    middle_rotor = rotor(key.rotors[1], key.indicators[1], key.rings[1]);
+    right_rotor = rotor(key.rotors[2], key.indicators[2], key.rings[2]);
+    plugs = key.plugboard;
+}
+
 void enigma::rotate() {
     if (middle_rotor.is_at_notch()) {
         middle_rotor.turnover();

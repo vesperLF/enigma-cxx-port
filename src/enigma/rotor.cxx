@@ -1,26 +1,27 @@
 #include "rotor.hxx"
 #include "decode.hxx"
 
-const char encodings[8][27] {
-    "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
-    "AJDKSIRUXBLHWTMCQGZNPYFVOE",
-    "BDFHJLCPRTXVZNYEIWGAKMUSQO",
-    "ESOVPZJAYQUIRHXLNFTGKDCMWB",
-    "VZBRGITYUPSDNHLXAWMJQOFECK",
-    "JPGVOUMFYQBENHZRDKASXLICTW",
-    "NZJHGRCXMYSWBOUFAIVLPEKQDT",
-    "FKQHTLXOCBJSPDZRAMEWNIUYGV"
-};
 
-constexpr std::array<std::array<int, 26>, 8> decode_eightfold(const char** pp) {
+
+constexpr std::array<std::array<int, 26>, 8> decode_eightfold() {
+    const char encodings[8][27] {
+        "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+        "AJDKSIRUXBLHWTMCQGZNPYFVOE",
+        "BDFHJLCPRTXVZNYEIWGAKMUSQO",
+        "ESOVPZJAYQUIRHXLNFTGKDCMWB",
+        "VZBRGITYUPSDNHLXAWMJQOFECK",
+        "JPGVOUMFYQBENHZRDKASXLICTW",
+        "NZJHGRCXMYSWBOUFAIVLPEKQDT",
+        "FKQHTLXOCBJSPDZRAMEWNIUYGV"
+    };
     std::array<std::array<int, 26>, 8> result {};
     for (int i = 0; i < 8; i++) {
-        result[i] = decode(pp[i]);
+        result[i] = decode(encodings[i]);
     }
     return result;
 }
 
-const std::array<std::array<int, 26>, 8> wirings = decode_eightfold((const char**)encodings);
+const std::array<std::array<int, 26>, 8> wirings = decode_eightfold();
 
 rotor::rotor(int name, int rotor_pos, int ring_setting) {
     name_code = name - 1;
