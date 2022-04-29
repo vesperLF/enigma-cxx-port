@@ -37,9 +37,9 @@ rotor::rotor(int name, int rotor_pos, int ring_setting) {
         12,
         12
     };
-    notch_position_1 = notch_positions[name];
-    notch_position_2 = name < 5 ? -1 : 25;
-    wiring = wirings[name].data();
+    notch_position_1 = notch_positions[name_code];
+    notch_position_2 = name_code < 5 ? -1 : 25;
+    wiring = wirings[name_code].data();
 }
 
 const std::string& rotor::get_name() {
