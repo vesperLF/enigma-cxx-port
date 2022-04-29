@@ -53,7 +53,7 @@ float quadgram_fitness(const char* text) {
 
 float ioc_fitness(const char* text) {
     int histogram[26] = {0};
-    int length = 1;
+    int length = 0;
     for (const char* p = text; *p != 0; p++) {
         histogram[*p - 65]++;
         length++;

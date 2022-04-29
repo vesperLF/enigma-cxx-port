@@ -27,8 +27,8 @@ namespace enigma_analysis {
                             float max_fitness = -1e30f;
                             enigma_key* best_key = nullptr;
                             for (int i = 0; i < 26; i++) {
-                                for (int ii = 0; i < 26; i++) {
-                                    for (int iii = 0; i < 26; i++) {
+                                for (int ii = 0; ii < 26; ii++) {
+                                    for (int iii = 0; iii < 26; iii++) {
                                         enigma e = { {rotor_name_1, i, 0}, {rotor_name_2, ii, 0}, {rotor_name_3, iii, 0}, 'B', plugboard};
                                         if (i == 0 && ii == 0 && iii == 0) {
                                             std::cout << e.left_rotor.get_name() << ' ' << e.middle_rotor.get_name() << ' ' << e.right_rotor.get_name() << '\n';
@@ -61,15 +61,15 @@ namespace enigma_analysis {
         std::vector<scored_enigma_key> result;
         result.resize(required_keys);
         for (scored_enigma_key& result_key : result) {
-            scored_enigma_key best_key_2;
-            for (auto iter = key_set.begin(); iter != key_set.end(); iter++) {
-                if (iter->score > best_key_2.score) {
-                    best_key_2 = *iter;
-                    key_set.erase(iter);
+            std::vector<scored_enigma_key>::iterator best_iter;
+            for (std::vector<scored_enigma_key>::iterator iter = key_set.begin(); iter != key_set.end(); iter++) {
+                if (iter->score > result_key.score) {
+                    result_key = *iter;
+                    best_iter = iter;
                     iter = key_set.begin();
                 }
             }
-            result_key = best_key_2;
+            key_set.erase(best_iter);
         }
         return result;
     }
