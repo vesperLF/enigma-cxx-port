@@ -21,7 +21,18 @@ constexpr std::array<std::array<int, 26>, 8> decode_eightfold() {
     return result;
 }
 
+constexpr std::array<std::array<int, 26>, 8> invert(const std::array<std::array<int, 26>, 8>& forward_wiring) {
+    std::array<std::array<int, 26>, 8> result {};
+    for (int i = 0; i < 8; i++) {
+        for (int ii = 0; ii < 26; ii++) {
+            result[i][forward_wiring[i][ii]] = ii;
+        }
+    }
+    return result;
+}
+
 const std::array<std::array<int, 26>, 8> wirings = decode_eightfold();
+const std::array<std::array<int, 26>, 8> inverse_wirings = invert(wirings);
 
 rotor::rotor(int name, int rotor_pos, int ring_setting) {
     name_code = name - 1;
@@ -40,6 +51,7 @@ rotor::rotor(int name, int rotor_pos, int ring_setting) {
     notch_position_1 = notch_positions[name_code];
     notch_position_2 = name_code < 5 ? -1 : 25;
     wiring = wirings[name_code].data();
+    inverse = inverse_wirings[name_code].data();
 }
 
 const std::string& rotor::get_name() {
@@ -63,7 +75,7 @@ int rotor::forward(int c) {
 
 int rotor::backward(int c) {
     int shift = rotor_position - ring_position;
-    return (wiring[26 - ((c + shift + 26) % 26)] - shift + 26) % 26;
+    return (inverse[(c + shift + 26) % 26] - shift + 26) % 26;
 }
 
 bool rotor::is_at_notch() {

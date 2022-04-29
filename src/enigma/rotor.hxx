@@ -6,6 +6,7 @@ class rotor {
 private:
     int name_code;
     const int* wiring;
+    const int* inverse;
     int rotor_position;
     int notch_position_1;
     int notch_position_2;

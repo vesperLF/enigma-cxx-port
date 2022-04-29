@@ -20,6 +20,7 @@ void enigma::rotate() {
 std::string enigma::encrypt(const std::string& input) {
     std::string output(input.length(), ' ');
     for (int i = 0; i < input.length(); i++) {
+        char c = input[i] - 65;
         rotate();
         output[i] =  plugs.forward(
             right_rotor.backward(
@@ -29,7 +30,7 @@ std::string enigma::encrypt(const std::string& input) {
                             left_rotor.forward(
                                 middle_rotor.forward(
                                     right_rotor.forward(
-                                        plugs.forward(input[i] - 65)
+                                        plugs.forward(c)
                                     )
                                 )
                             )
