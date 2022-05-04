@@ -10,7 +10,7 @@ const std::array<int, 26> b_wiring = decode(b_encoding);
 const std::array<int, 26> c_wiring = decode(c_encoding);
 
 
-reflector::reflector(char c) {
+reflector_t::reflector_t(char c) {
     switch (c) {
     case 'B':
         wiring = b_wiring.data();
@@ -23,6 +23,6 @@ reflector::reflector(char c) {
     }
 }
 
-int reflector::forward(int c) {
+int reflector_t::forward(int c) {
     return wiring[c];
 }

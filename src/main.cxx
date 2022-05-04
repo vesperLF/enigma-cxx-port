@@ -10,13 +10,13 @@ int main() {
     // II V III / 7 4 19 / 12 2 20 / AF TV KO BL RW
     std::string cipher_text = "OZLUDYAKMGMXVFVARPMJIKVWPMBVWMOIDHYPLAYUWGBZFAFAFUQFZQISLEZMYPVBRDDLAGIHIFUJDFADORQOOMIZPYXDCBPWDSSNUSYZTJEWZPWFBWBMIEQXRFASZLOPPZRJKJSPPSTXKPUWYSKNMZZLHJDXJMMMDFODIHUBVCXMNICNYQBNQODFQLOGPZYXRJMTLMRKQAUQJPADHDZPFIKTQBFXAYMVSZPKXIQLOQCVRPKOBZSXIUBAAJBRSNAFDMLLBVSYXISFXQZKQJRIQHOSHVYJXIFUZRMXWJVWHCCYHCXYGRKMKBPWRDBXXRGABQBZRJDVHFPJZUSEBHWAEOGEUQFZEEBDCWNDHIAQDMHKPRVYHQGRDYQIOEOLUBGBSNXWPZCHLDZQBWBEWOCQDBAFGUVHNGCIKXEIZGIZHPJFCTMNNNAUXEVWTWACHOLOLSLTMDRZJZEVKKSSGUUTHVXXODSKTFGRUEIIXVWQYUIPIDBFPGLBYXZTCOQBCAHJYNSGDYLREYBRAKXGKQKWJEKWGAPTHGOMXJDSQKYHMFGOLXBSKVLGNZOAXGVTGXUIVFTGKPJU";
     
-    std::vector<scored_enigma_key> rotor_configurations = enigma_analysis::find_rotor_configuration(cipher_text, enigma_analysis::available_rotors::FIVE, {}, 10, ioc_fitness);
+    std::vector<scored_enigma_key_t> rotor_configurations = enigma_analysis::find_rotor_configuration(cipher_text, enigma_analysis::available_rotors::FIVE, {}, 10, ioc_fitness);
 
     std::cout << "\nTop 10 rotor configurations:\n";
-    for (scored_enigma_key& sek : rotor_configurations) {
-        std::cout << rotor(sek.rotors[0]).get_name() << ' ' << rotor(sek.rotors[1]).get_name() << ' ' << rotor(sek.rotors[2]).get_name() << " / " << sek.indicators[0] << ' ' << sek.indicators[1] << ' ' << sek.indicators[2] << " / " << sek.score << '\n';
+    for (scored_enigma_key_t& sek : rotor_configurations) {
+        std::cout << rotor_t(sek.rotors[0]).get_name() << ' ' << rotor_t(sek.rotors[1]).get_name() << ' ' << rotor_t(sek.rotors[2]).get_name() << " / " << sek.indicators[0] << ' ' << sek.indicators[1] << ' ' << sek.indicators[2] << " / " << sek.score << '\n';
     }
-    std::cout << "Current decryption: " << enigma(rotor_configurations[0]).encrypt(cipher_text) << '\n';
+    std::cout << "Current decryption: " << enigma_t(rotor_configurations[0]).encrypt(cipher_text) << '\n';
 
     const std::chrono::time_point end_time = std::chrono::system_clock::now();
     

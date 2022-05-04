@@ -1,9 +1,9 @@
 #pragma once
 
-class reflector {
+class reflector_t {
 private:
     const int* wiring;
 public:
-    reflector(char = 'B');
+    reflector_t(char = 'B');
     int forward(int);
 };

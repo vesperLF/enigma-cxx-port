@@ -1,6 +1,6 @@
 #include "scored_enigma_key.hxx"
 
-scored_enigma_key::scored_enigma_key(const enigma_key& key, float new_score) {
+scored_enigma_key_t::scored_enigma_key_t(const enigma_key_t& key, float new_score) {
     rotors = key.rotors;
     indicators[0] = key.indicators[0];
     indicators[1] = key.indicators[1];

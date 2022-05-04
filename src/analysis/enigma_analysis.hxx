@@ -10,5 +10,5 @@ namespace enigma_analysis {
         EIGHT = 8
     };
 
-    std::vector<scored_enigma_key> find_rotor_configuration(const std::string& cipher_text, available_rotors, const std::set<std::pair<char, char>>&, int, float(*fitness_function)(const char*));
+    std::vector<scored_enigma_key_t> find_rotor_configuration(const std::string& cipher_text, available_rotors, const std::set<std::pair<char, char>>&, int, float(*fitness_function)(const char*));
 }

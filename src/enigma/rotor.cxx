@@ -34,7 +34,7 @@ constexpr std::array<std::array<int, 26>, 8> invert(const std::array<std::array<
 const std::array<std::array<int, 26>, 8> wirings = decode_eightfold();
 const std::array<std::array<int, 26>, 8> inverse_wirings = invert(wirings);
 
-rotor::rotor(int name, int rotor_pos, int ring_setting) {
+rotor_t::rotor_t(int name, int rotor_pos, int ring_setting) {
     name_code = name - 1;
     rotor_position = rotor_pos;
     ring_position = ring_setting;
@@ -54,7 +54,7 @@ rotor::rotor(int name, int rotor_pos, int ring_setting) {
     inverse = inverse_wirings[name_code].data();
 }
 
-const std::string& rotor::get_name() {
+const std::string& rotor_t::get_name() {
     static const std::string names[8] {
         "I",
         "II",
@@ -68,20 +68,20 @@ const std::string& rotor::get_name() {
     return names[name_code];
 }
 
-int rotor::forward(int c) {
+int rotor_t::forward(int c) {
     int shift = rotor_position - ring_position;
     return (wiring[(c + shift + 26) % 26] - shift + 26) % 26;
 }
 
-int rotor::backward(int c) {
+int rotor_t::backward(int c) {
     int shift = rotor_position - ring_position;
     return (inverse[(c + shift + 26) % 26] - shift + 26) % 26;
 }
 
-bool rotor::is_at_notch() {
+bool rotor_t::is_at_notch() {
     return rotor_position == notch_position_1 || rotor_position == notch_position_2;
 }
 
-void rotor::turnover() {
+void rotor_t::turnover() {
     rotor_position = (rotor_position + 1) % 26;
 }
