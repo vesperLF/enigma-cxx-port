@@ -33,8 +33,7 @@ namespace enigma_analysis {
                                         if (i == 0 && ii == 0 && iii == 0) {
                                             std::cout << e.left_rotor.get_name() << ' ' << e.middle_rotor.get_name() << ' ' << e.right_rotor.get_name() << '\n';
                                         }
-                                        std::string decryption = e.encrypt(cipher_text);
-                                        float fitness = fitness_function(decryption.c_str());
+                                        float fitness = fitness_function(e.encrypt(cipher_text).c_str());
                                         if (fitness > max_fitness) {
                                             max_fitness = fitness;
                                             if (best_key == nullptr) {
@@ -71,6 +70,38 @@ namespace enigma_analysis {
             }
             key_set.erase(best_iter);
         }
+        return result;
+    }
+
+    template<int ROTOR_INDEX> int find_ring_setting(enigma_key_t key, const std::string& cipher_text, float(*fitness_function)(const char*)) {
+        float max_fitness = -1e30f;
+        int optimal_ring_setting = 0;
+        const int original_indicator = key.indicators[ROTOR_INDEX];
+        
+        for (int i = 0; i < 26; i++) {
+            key.indicators[ROTOR_INDEX] = (original_indicator + i) % 26;
+            key.rings[ROTOR_INDEX] = i;
+            float fitness = fitness_function(enigma_t(key).encrypt(cipher_text).c_str());
+            if (fitness > max_fitness) {
+                max_fitness = fitness;
+                optimal_ring_setting = i;
+            }
+        }
+        return optimal_ring_setting;
+    }
+
+    template<int ROTOR_INDEX> void optimize_ring_setting(enigma_key_t& key, const std::string& cipher_text, float(*fitness_function)(const char*)) {
+        int optimal_index = find_ring_setting<ROTOR_INDEX>(key, cipher_text, fitness_function);
+        key.rings[ROTOR_INDEX] = optimal_index;
+        key.indicators[ROTOR_INDEX] = (key.indicators[ROTOR_INDEX] + optimal_index) % 26;
+    }
+    
+    scored_enigma_key_t find_ring_settings(const std::string& cipher_text, const enigma_key_t& key, float(*fitness_function)(const char*)) {
+        scored_enigma_key_t result(key);
+        const int right_rotor_index = 2, middle_rotor_index = 1;
+        optimize_ring_setting<right_rotor_index>(result, cipher_text, fitness_function);
+        optimize_ring_setting<middle_rotor_index>(result, cipher_text, fitness_function);
+        result.score = fitness_function(enigma_t(result).encrypt(cipher_text).c_str());
         return result;
     }
 }

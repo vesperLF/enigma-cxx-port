@@ -18,6 +18,10 @@ int main() {
     }
     std::cout << "Current decryption: " << enigma_t(rotor_configurations[0]).encrypt(cipher_text) << '\n';
 
+    scored_enigma_key_t rotor_and_ring_configuration = enigma_analysis::find_ring_settings(cipher_text, rotor_configurations[0], bigram_fitness);
+
+    std::cout << "Best ring settings: " << rotor_and_ring_configuration.rings[0] << ' ' << rotor_and_ring_configuration.rings[1] << ' ' << rotor_and_ring_configuration.rings[2] << "\nCurrent decryption: " << enigma_t(rotor_and_ring_configuration).encrypt(cipher_text) << '\n';
+
     const std::chrono::time_point end_time = std::chrono::system_clock::now();
     
     std::cout << "Total execution time: " << (end_time - start_time).count() / 10000 << '\n';
