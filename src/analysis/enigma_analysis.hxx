@@ -12,4 +12,5 @@ namespace enigma_analysis {
 
     std::vector<scored_enigma_key_t> find_rotor_configuration(const std::string& cipher_text, available_rotors, const std::set<std::pair<char, char>>&, int, float(*)(const char*));
     scored_enigma_key_t find_ring_settings(const std::string&, const enigma_key_t&, float(*)(const char*));
+    scored_enigma_key_t find_plugs(const std::string&, enigma_key_t, int, float(*)(const char*));
 }

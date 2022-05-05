@@ -104,4 +104,35 @@ namespace enigma_analysis {
         result.score = fitness_function(enigma_t(result).encrypt(cipher_text).c_str());
         return result;
     }
+
+    std::pair<char, char> find_plug(enigma_key_t key, const std::string& cipher_text, float(*fitness_function)(const char*)) {
+        std::set<int> unplugged_characters = plugboard_t::get_unplugged_characters(key.plugboard);
+        float max_fitness = -1e30f;
+        std::pair<char, char> result;
+        for (int i : unplugged_characters) {
+            for (int ii : unplugged_characters) {
+                if (i < ii) {
+                    std::pair<char, char> plug {i + 65, ii + 65};
+                    key.plugboard.insert(plug);
+                    float fitness = fitness_function(enigma_t(key).encrypt(cipher_text).c_str());
+                    if (fitness > max_fitness) {
+                        max_fitness = fitness;
+                        result = plug;
+                    }
+                    key.plugboard.erase(plug);
+                }
+            }
+        }
+        return result;
+    }
+
+    scored_enigma_key_t find_plugs(const std::string& cipher_text, enigma_key_t key, int max_plugs, float(*fitness_function)(const char*)) {
+        std::set<std::pair<char, char>> plugs;
+        for (int i = 0; i < max_plugs; i++) {
+            key.plugboard = plugs;
+            plugs.insert(find_plug(key, cipher_text, fitness_function));
+        }
+        key.plugboard = plugs;
+        return scored_enigma_key_t(key, fitness_function(enigma_t(key).encrypt(cipher_text).c_str()));
+    }
 }

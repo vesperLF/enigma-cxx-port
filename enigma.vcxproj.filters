@@ -45,6 +45,9 @@
     <ClCompile Include="src\analysis\scored_enigma_key.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\analysis\enigma_key.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\enigma\enigma.hxx">

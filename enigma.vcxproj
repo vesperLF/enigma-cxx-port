@@ -83,6 +83,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\analysis\enigma_analysis.cxx" />
+    <ClCompile Include="src\analysis\enigma_key.cxx" />
     <ClCompile Include="src\analysis\fitness\fitness_functions.cxx" />
     <ClCompile Include="src\analysis\fitness\frequency_analysis.cxx" />
     <ClCompile Include="src\analysis\fitness\n_grams_data.cxx" />

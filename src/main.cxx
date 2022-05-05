@@ -22,6 +22,10 @@ int main() {
 
     std::cout << "Best ring settings: " << rotor_and_ring_configuration.rings[0] << ' ' << rotor_and_ring_configuration.rings[1] << ' ' << rotor_and_ring_configuration.rings[2] << "\nCurrent decryption: " << enigma_t(rotor_and_ring_configuration).encrypt(cipher_text) << '\n';
 
+    scored_enigma_key_t optimal_key = enigma_analysis::find_plugs(cipher_text, rotor_and_ring_configuration, 5, quadgram_fitness);
+
+    std::cout << "Best plugboard: " << optimal_key.plugboard_str() << "\nFinal decryption: " << enigma_t(optimal_key).encrypt(cipher_text) << "\n\n";
+    
     const std::chrono::time_point end_time = std::chrono::system_clock::now();
     
     std::cout << "Total execution time: " << (end_time - start_time).count() / 10000 << '\n';
