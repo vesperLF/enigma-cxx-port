@@ -10,87 +10,59 @@ You can compile and run this code yourself if you have a C++ compiler installed.
 ### Windows
 Clone and traverse into the enigma directory
 ```
-git clone https://github.com/mikepound/enigma.git
-cd enigma
+git clone https://github.com/Dezalk/enigma-cxx-port.git
+cd enigma-cxx-port
 ```
 
-Compile all the java files from src into bin
+Open the solution file
 ```
-javac -d bin -sourcepath src src\com\mikepound\Main.java
-```
-
-Copy the n-gram statistics into the bin folder too
-```
-xcopy resources\data bin\data\
+.\enigma.sln
 ```
 
-Run the Enigma code in main
-```
-java -cp bin com.mikepound.Main
-```
+Use Visual Studio's GUI to compile and run
 
 ### Linux/Unix
-Clone and traverse into the enigma directory
-```
-git clone https://github.com/mikepound/enigma.git
-cd enigma
-```
-
-Compile all the java files from src into bin
-```
-javac -d bin -sourcepath src src/com/mikepound/Main.java
-```
-
-Copy the n-gram statistics into the bin folder too
-```
-cp -r resources/data bin/data
-```
-
-Run the Enigma code in main
-```
-java -cp bin com.mikepound.Main
-```
+I am not in the habit of using Linux at the moment, so I'm not going to test my code on Linux at this time.
 
 ## The Enigma Machine
-The code for the enigma machine can be found in the `enigma` package. In the `analysis` package is the code to perform attacks on ciphertext. The attack uses various fitness functions that attempt to measure the effectiveness of a test decryption, found within the `analysis.fitness` package. Finally, the `Main.java` file is where you'll find the actual attack I performed in the video, and so it also contains a lot of examples you can use to run your own attacks.
+The code for the enigma machine can be found in the `enigma` folder. In the `analysis` folder is the code to perform attacks on ciphertext. The attack uses various fitness functions that attempt to measure the effectiveness of a test decryption, found within the `analysis\fitness` folder. Finally, the `main.cxx` file is where you'll find the actual attack Mike performed in the video, and so it also contains a lot of examples you can use to run your own attacks.
 
-### Creating a Java Enigma
-The code itself is fairly straightforward. You can create a new enigma machine using a constructor, for example this code will create a new object called `enigmaMachine` with the settings provided:
+### Creating a C++ Enigma
+The code itself is fairly straightforward. You can create a new enigma machine using a constructor, for example this code will create a new object called `enigma_machine` with the settings provided:
 
-```java
-enigmaMachine = new Enigma(new String[] {"VII", "V", "IV"}, "B", new int[] {10,5,12}, new int[] {1,2,3}, "AD FT WH JO PN");
+```c++
+enigma_t enigma_machine = {{"VII", 10, 1}, {"V", 5, 2}, {"IV", 12, 3}, 'B', "AD FT WH JO PN"};
 ```
 
-Rotors and the reflector are given by their common names used in the war, with rotors labelled as `"I"` through to `"VIII"`, and reflectors `"B"` and `"C"`. I've not implemented every variant, such as the thin reflectors seen in naval 4-rotor enigma. You could easily add these if you liked. Starting positions and ring settings are given as integers 0-25 rather than the A-Z often seen, this is just to avoid unnecessary mappings. The majority of the code here treats letters as 0-25 to aid indexing. Plugs are given as a string of character pairs representing steckered partners. If you don't wish to use a plugboard, `""` or `null` is fine.
+Rotors and the reflector are given by their common names used in the war, with rotors labelled as `"I"` through to `"VIII"`, and reflectors `"B"` and `"C"`. Neither Mike nor I have implemented every variant, such as the thin reflectors seen in naval 4-rotor enigma. You could easily add these if you liked. Starting positions and ring settings are given as integers 0-25 rather than the A-Z often seen, this is just to avoid unnecessary mappings. The majority of the code here treats letters as 0-25 to aid indexing. Plugs are given as a string of character pairs representing steckered partners. If you don't wish to use a plugboard, `{}` is fine.
 
 ### Encrypting and Decrypting
-Given an enigma instance like the `enigmaMachine` above, encryption or decryption is performed on character arrays of capital letters [A-Z]. Simply to save time I\'ve not done a lot of defensive coding to remove invalid characters, so be careful to only use uppercase, or to strip unwanted characters out of strings. Here is an encryption example using the enigma machine above:
+Given an enigma instance like the `enigma_machine` above, encryption or decryption is performed on character arrays of capital letters [A-Z]. Simply to save time there has not been a lot of defensive coding to remove invalid characters, so be careful to only use uppercase, or to strip unwanted characters out of strings. Here is an encryption example using the enigma machine above:
 
-```java
-char[] plaintext = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
-char[] ciphertext = enigmaMachine.encrypt(plaintext);
-String s = new String(ciphertext); // UJFZBOKXBAQSGCLDNUTSNTASEF
+```c++
+std::string plaintext = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+std::string ciphertext = enigma_machine.encrypt(plaintext); // UJFZBOKXBAQSGCLDNUTSNTASEF
 ```
-You can quickly check everything is working by running the tests found in the `EnigmaTest.java` file.
+You can quickly check everything is working by running the tests found in the `enigma_test.cxx` file.
 
 ### How it works
-Throughout the enigma machine, letters A-Z are represented as integers 0-25. Most of the components, the rotors, reflector and plugboard are treated as arrays that map values 0-25 to a different set of values 0-25. Encrypting or decrypting is simply a case of passing a value through these arrays in turn. What makes enigma trickier is that the arrays rotate, and that they can have different starting or ring positions. For efficiency in this implementation I keep the arrays fixed, and simulate rotation by shifting the index in and out of each rotor. Before each character is encrypted the rotors rotate, sometimes causing the neighbouring rotors to also rotate, this is handled by the `rotate()` function. Enigma has a quirk whereby the middle rotors moves twice when it turns the left-most rotor. This is called double stepping, and is also implemented here.
+Throughout the enigma machine, letters A-Z are represented as integers 0-25. Most of the components, the rotors, reflector and plugboard are treated as arrays that map values 0-25 to a different set of values 0-25. Encrypting or decrypting is simply a case of passing a value through these arrays in turn. What makes enigma trickier is that the arrays rotate, and that they can have different starting or ring positions. For efficiency in this implementation the arrays are fixed, and simulate rotation by shifting the index in and out of each rotor. Before each character is encrypted the rotors rotate, sometimes causing the neighbouring rotors to also rotate, this is handled by the `rotate()` function. Enigma has a quirk whereby the middle rotors moves twice when it turns the left-most rotor. This is called double stepping, and is also implemented here.
 
 ## Breaking a Code
 Breaking an enigma message here comes down to decrypting a ciphertext with all possible rotor configurations and seeing which output looks the best. We measure best here using a fitness function.
 
 ### Fitness functions
 The code makes a number of fitness functions available that can be used to measure how close a test decryption is to English text. Each works similarly, some work better than others. You can test to see which work best for a given message. The fitness functions are:
-* **Index of coincidence**. The probability of any random two letters being identical. Tends to be higher for proper sentences than for random encrypted text. I've found this is quite good as an initial fitness function when there are many plugs involved.
-* **Single / Bi / Tri / Quad grams**. The probability of a sentence measured based on the probability of constituent sequences of characters. Bigrams are pairs, such as AA or ST. Trigrams are triplets, e.g. THE, and so on. The more letters you use, e.g. single -> bi -> tri -> quad seems to improve the power of the fitness function, but you can't rely on this. I've found the longer measures are better when you already have some of the settings correct.
-* **Plaintext Fitness**. This function is a known plaintext attack, comparing the decryption against all or portions of a suspected real plaintext. This is by far the most effective solution, even a few words of known plaintext will substantially increase your odds of a break even with a number of plugboard swaps. The constructor for this fitness function has two possible constructors:
-```java
-public KnownPlaintextFitness(char[] plaintext)
+* **Index of coincidence**. The probability of any random two letters being identical. Tends to be higher for proper sentences than for random encrypted text. Mike's found this is quite good as an initial fitness function when there are many plugs involved.
+* **Single / Bi / Tri / Quad grams**. The probability of a sentence measured based on the probability of constituent sequences of characters. Bigrams are pairs, such as AA or ST. Trigrams are triplets, e.g. THE, and so on. The more letters you use, e.g. single -> bi -> tri -> quad seems to improve the power of the fitness function, but you can't rely on this. Mike's found the longer measures are better when you already have some of the settings correct.
+* **Plaintext Fitness**. This function is a known plaintext attack, comparing the decryption against all or portions of a suspected real plaintext. This is by far the most effective solution, even a few words of known plaintext will substantially increase your odds of a break even with a number of plugboard swaps. This fitness function has two overloads:
+```c++
+float known_plaintext_fitness(const char* text, const char* known_text)
 ```
 Use this if you have an entire complete plaintext you're looking for.
 
-```java
-public KnownPlaintextFitness(String[] words, int[] offsets)
+```c++
+float known_plaintext_fitness(const char* text, const std::vector<std::pair<std::string, size_t>>& word_offset_pairs)
 ```
 This one takes pairs of words and their possible positions within the plaintext. For example, in the string "tobeornottobethatisthequestion" you might supply {"to", "that", "question"} and {0, 13, 22}. This function is used if you can guess some words, but aren't sure of the whole sentence, such as when you have partially broken the message already. Note that in the default example known plaintext won't improve much, because the attack is already successful. The errors in the output are not due to the fitness function, rather that we are not simultaneously pairing rotors and ring settings.
 
@@ -101,10 +73,10 @@ The basic approach to the attack is as follows:
 3. Fix all settings, and then use a hill climbing approach to find the best performing plugboard swaps, again measured using a fitness function.
 
 ## Notes
-* The code is fairly efficient, Enigma boils down to a lot of array indexing into different rotors. This said, I didn't worry too much about speed, it's plenty fast enough. I used classes and functions rather than doing things inline, for example. Modern compilers will optimise a lot of it anyway.
-* I've added a more optimised and multi-threaded version in a branch called [optimised](https://github.com/mikepound/enigma/tree/optimised). I've managed to get the code to break a message in under 4 seconds on one of our servers! I'm keeping this code separate to the main branch to keep the main branch clean and based off the original video.
-* Similarly, in the brute force key search code, for simplicity I create new enigma machines as required rather than implementing a number of specific reinitialisation functions that would be faster.
-* I've not written any kind of command line parsing here. You're welcome to add this, but i felt for a tutorial on enigma and breaking it, a step by step procedure in main was fine.
+* The code is fairly efficient, Enigma boils down to a lot of array indexing into different rotors. I tried to optimize a bit more than Mike did, but it isn't really important. On my machine, the code completes in roughly 16 seconds for C++ release mode and 20 seconds for Java. C++ debug mode is far slower.
+* Mike's added a more optimised and multi-threaded version in a branch called [optimised](https://github.com/mikepound/enigma/tree/optimised). While he's managed to get the code to break a message in under 4 seconds on a fast machine, I'm satisfied with just porting the original branch to C++.
+* Similarly, in the brute force key search code, for simplicity new enigma machines are created as required rather than implementing a number of specific reinitialisation functions that would be faster.
+* There isn't any kind of command line parsing here. You're welcome to add this, but for a tutorial on enigma and breaking it, a step by step procedure in main was fine.
 
 ## Resources
 1. For more details on enigma, the [wikipedia articles](https://en.wikipedia.org/wiki/Enigma_machine) are a great resource.
