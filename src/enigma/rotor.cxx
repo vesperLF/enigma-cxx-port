@@ -31,31 +31,10 @@ constexpr std::array<std::array<int, 26>, 8> invert(const std::array<std::array<
     return result;
 }
 
-const std::array<std::array<int, 26>, 8> wirings = decode_eightfold();
-const std::array<std::array<int, 26>, 8> inverse_wirings = invert(wirings);
+const std::array<std::array<int, 26>, 8> rotor_t::wirings = decode_eightfold();
+const std::array<std::array<int, 26>, 8> rotor_t::inverse_wirings = invert(wirings);
 
-rotor_t::rotor_t(int name, int rotor_pos, int ring_setting) {
-    name_code = name - 1;
-    rotor_position = rotor_pos;
-    ring_position = ring_setting;
-    static const int notch_positions[8] {
-        16,
-        4,
-        21,
-        9,
-        25,
-        12,
-        12,
-        12
-    };
-    notch_position_1 = notch_positions[name_code];
-    notch_position_2 = name_code < 5 ? -1 : 25;
-    wiring = wirings[name_code].data();
-    inverse = inverse_wirings[name_code].data();
-}
-
-const std::string& rotor_t::get_name() {
-    static const std::string names[8] {
+const std::array<std::string, 8> names {
         "I",
         "II",
         "III",
@@ -64,7 +43,48 @@ const std::string& rotor_t::get_name() {
         "VI",
         "VII",
         "VIII"
-    };
+};
+
+const int notch_positions[8] {
+        16,
+        4,
+        21,
+        9,
+        25,
+        12,
+        12,
+        12
+};
+
+void rotor_t::constructor_helper(int name, int rotor_pos, int ring_setting) {
+    name_code = name - 1;
+    rotor_position = rotor_pos;
+    ring_position = ring_setting;
+    notch_position_1 = notch_positions[name_code];
+    notch_position_2 = name_code < 5 ? -1 : 25;
+    wiring = wirings[name_code].data();
+    inverse = inverse_wirings[name_code].data();
+}
+
+rotor_t::rotor_t(int name, int rotor_pos, int ring_setting) {
+    constructor_helper(name, rotor_pos, ring_setting);
+}
+
+rotor_t::rotor_t(const std::string& name, int rotor_pos, int ring_setting) {
+    name_code = -9;
+    for (int i = 0; i < 8; i++) {
+        if (name == names[i]) {
+            name_code = i;
+            break;
+        }
+    }
+    if (name_code == -9) {
+        throw name_code;
+    }
+    constructor_helper(name_code + 1, rotor_pos, ring_setting);
+}
+
+const std::string& rotor_t::get_name() {
     return names[name_code];
 }
 

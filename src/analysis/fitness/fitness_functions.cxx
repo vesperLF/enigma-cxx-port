@@ -76,3 +76,16 @@ float known_plaintext_fitness(const char* text, const char* known_text) {
     return total;
 #pragma warning(default:4244)
 }
+
+std::string get_known_text_string(const char* text, const std::vector<std::pair<std::string, size_t>>& word_offset_pairs) {
+    size_t length = 0;
+    for (const std::pair<std::string, size_t>& w_o_pair : word_offset_pairs) {
+        size_t offset = w_o_pair.second + w_o_pair.first.length();
+        length = offset > length ? offset : length;
+    }
+    std::string plaintext(length, -1);
+    for (const std::pair<std::string, size_t>& w_o_pair : word_offset_pairs) {
+        plaintext.replace(w_o_pair.second, w_o_pair.first.length(), w_o_pair.first);
+    }
+    return plaintext;
+}

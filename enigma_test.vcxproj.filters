@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\n_gram_preprocessing.cxx">
+    <ClCompile Include="src\enigma_test.cxx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
