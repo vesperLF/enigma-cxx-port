@@ -10,7 +10,7 @@ You can compile and run this code yourself if you have a C++ compiler installed.
 ### Windows
 Clone and traverse into the enigma directory
 ```
-git clone https://github.com/Dezalk/enigma-cxx-port.git
+git clone https://github.com/vesperLF/enigma-cxx-port.git
 cd enigma-cxx-port
 ```
 
